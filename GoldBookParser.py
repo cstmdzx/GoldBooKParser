@@ -41,6 +41,35 @@ for line in listRange:
 
 print setInstance.__len__()
 
+listRange = linesGoldBook[8438:]
+fileInstances = open('Instances', 'w')
+strTmp = ''
+flagSource = False
+intCount = 0
+print listRange[0]
+for line in listRange:
+    line = line.replace('\n', '')
+    line = line.replace('\x0C', '')
+    if line.find('IUPAC Compendium of Chemical Terminology') != -1:
+        continue
+    if line.find('of 1622') != -1:
+        continue
+    if line in setInstance:
+        strTmp += line + '\n'
+        flagSource = False
+    else:
+        if line.find('Source:') != -1:  # find, 'Source:' in line
+            fileInstances.write(strTmp + '\n')
+            fileInstances.write('\n')
+            intCount += 1
+            strTmp = ''
+            flagSource = True
+        else:  # not find
+            if flagSource == True:
+                continue
+            else:
+                strTmp += line
+print intCount
 
 for intFlag in range(8438, intLenLinesGoldBook):
     line = linesGoldBook[intFlag]
