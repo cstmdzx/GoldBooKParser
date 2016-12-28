@@ -1,4 +1,5 @@
 #-*-coding:UTF-8-*-
+#文件中总数比统计的目录的要多
 import re
 
 intI = 0
